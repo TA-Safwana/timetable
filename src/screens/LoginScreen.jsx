@@ -1,11 +1,6 @@
-import { signInWithPopup, signInWithRedirect } from 'firebase/auth'
+import { signInWithPopup } from 'firebase/auth'
 import { auth, googleProvider } from '../firebase'
-import { markRedirectPending } from '../hooks/useAuth'
 import { useState } from 'react'
-
-function isMobile() {
-  return /iPhone|iPad|iPod|Android/i.test(navigator.userAgent)
-}
 
 export default function LoginScreen() {
   const [error, setError] = useState('')
@@ -15,12 +10,7 @@ export default function LoginScreen() {
     setError('')
     setLoading(true)
     try {
-      if (isMobile()) {
-        markRedirectPending()
-        await signInWithRedirect(auth, googleProvider)
-      } else {
-        await signInWithPopup(auth, googleProvider)
-      }
+      await signInWithPopup(auth, googleProvider)
     } catch {
       setError('Sign in failed. Please try again.')
       setLoading(false)
