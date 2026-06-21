@@ -4,18 +4,35 @@ import { auth } from '../firebase'
 
 export function useAuth() {
   const [user, setUser] = useState(undefined) // undefined = loading, null = signed out
-  const [redirectChecked, setRedirectChecked] = useState(false)
+  const [ready, setReady] = useState(false)
 
   useEffect(() => {
-    // Process any pending redirect result before resolving auth state
+    let authResolved = false
+    let redirectResolved = false
+    let resolvedUser = undefined
+
+    function trySetReady() {
+      if (authResolved && redirectResolved) {
+        setUser(resolvedUser)
+        setReady(true)
+      }
+    }
+
+    const unsub = onAuthStateChanged(auth, u => {
+      resolvedUser = u
+      authResolved = true
+      trySetReady()
+    })
+
     getRedirectResult(auth)
       .catch(() => {})
-      .finally(() => setRedirectChecked(true))
+      .finally(() => {
+        redirectResolved = true
+        trySetReady()
+      })
 
-    return onAuthStateChanged(auth, setUser)
+    return unsub
   }, [])
 
-  // Stay in loading state until redirect result is processed
-  if (!redirectChecked) return undefined
-  return user
+  return ready ? user : undefined
 }
