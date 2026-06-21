@@ -223,9 +223,15 @@ function ImportModal({ user, shareData, onClose, onDone }) {
   const [newEmoji, setNewEmoji] = useState(EMOJIS[0])
   const [importing, setImporting] = useState(false)
 
+  // Auto-select if only one child
+  useEffect(() => {
+    if (children.length === 1 && !selectedId) setSelectedId(children[0].id)
+  }, [children])
+
   async function handleImport() {
-    setImporting(true)
     let childId = selectedId
+    if (mode === 'pick' && !childId) return // hard guard
+    setImporting(true)
 
     if (mode === 'new') {
       const ref = await addDoc(collection(db, 'users', user.uid, 'children'), {
@@ -250,6 +256,7 @@ function ImportModal({ user, shareData, onClose, onDone }) {
         )
       )
     )
+    setImporting(false)
     onDone()
   }
 
