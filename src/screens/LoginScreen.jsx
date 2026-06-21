@@ -1,4 +1,4 @@
-import { signInWithPopup, signInWithRedirect } from 'firebase/auth'
+import { signInWithPopup } from 'firebase/auth'
 import { auth, googleProvider } from '../firebase'
 import { useState } from 'react'
 
@@ -10,16 +10,13 @@ function isInAppBrowser() {
 export default function LoginScreen() {
   const [error, setError] = useState('')
   const [loading, setLoading] = useState(false)
+  const inApp = isInAppBrowser()
 
   async function handleLogin() {
     setError('')
     setLoading(true)
     try {
-      if (isInAppBrowser()) {
-        await signInWithRedirect(auth, googleProvider)
-      } else {
-        await signInWithPopup(auth, googleProvider)
-      }
+      await signInWithPopup(auth, googleProvider)
     } catch {
       setError('Sign in failed. Please try again.')
       setLoading(false)
@@ -67,9 +64,24 @@ export default function LoginScreen() {
         Know exactly which books to pack every day
       </p>
 
+      {inApp && (
+        <div style={{
+          background: 'rgba(0,0,0,0.2)',
+          borderRadius: 'var(--radius)',
+          padding: '14px 16px',
+          marginBottom: '20px',
+          maxWidth: '300px',
+          textAlign: 'left',
+        }}>
+          <p style={{ color: '#fff', fontSize: '13px', lineHeight: 1.6, fontWeight: 500 }}>
+            ⚠️ You're in an in-app browser. For sign-in to work, open this link in <strong>Safari or Chrome</strong>. Tap the menu (···) → <strong>Open in Browser</strong>.
+          </p>
+        </div>
+      )}
+
       <button
         onClick={handleLogin}
-        disabled={loading}
+        disabled={loading || inApp}
         style={{
           background: '#fff',
           color: '#1a1a1a',
