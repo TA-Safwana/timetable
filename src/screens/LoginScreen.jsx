@@ -1,4 +1,4 @@
-import { signInWithPopup } from 'firebase/auth'
+import { signInWithRedirect } from 'firebase/auth'
 import { auth, googleProvider } from '../firebase'
 import { useState } from 'react'
 
@@ -10,7 +10,7 @@ export default function LoginScreen() {
     setError('')
     setLoading(true)
     try {
-      await signInWithPopup(auth, googleProvider)
+      await signInWithRedirect(auth, googleProvider)
     } catch {
       setError('Sign in failed. Please try again.')
       setLoading(false)
