@@ -6,6 +6,7 @@ import {
 } from 'firebase/firestore'
 import { db } from '../firebase'
 import { useChildren } from '../hooks/useChildren'
+import { useTimetable } from '../hooks/useTimetable'
 import AppShell from '../components/AppShell'
 
 const EMOJIS = ['🐬', '🦁', '🐼', '🦊', '🐸', '🦄', '🐧', '🦋', '🐙', '🌟']
@@ -42,6 +43,8 @@ export default function ChildrenScreen({ user }) {
 
 function ChildCard({ child, uid }) {
   const navigate = useNavigate()
+  const timetable = useTimetable(uid, child.id)
+  const hasTimetable = Object.values(timetable).some(subjects => subjects.length > 0)
 
   async function handleDelete() {
     if (!window.confirm(`Remove ${child.name}? This will also delete their timetable.`)) return
@@ -89,7 +92,7 @@ function ChildCard({ child, uid }) {
         <button
           onClick={() => navigate(`/children/${child.id}/timetable`)}
           style={{
-            background: 'var(--secondary)',
+            background: hasTimetable ? 'var(--secondary)' : 'var(--accent)',
             color: '#fff',
             borderRadius: 'var(--radius)',
             padding: '8px 16px',
@@ -98,7 +101,7 @@ function ChildCard({ child, uid }) {
             flexShrink: 0,
           }}
         >
-          Timetable
+          {hasTimetable ? 'Timetable' : 'Add Timetable'}
         </button>
 
         {/* Delete */}
