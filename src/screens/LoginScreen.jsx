@@ -1,5 +1,6 @@
 import { signInWithPopup, signInWithRedirect } from 'firebase/auth'
 import { auth, googleProvider } from '../firebase'
+import { markRedirectPending } from '../hooks/useAuth'
 import { useState } from 'react'
 
 function isMobile() {
@@ -15,6 +16,7 @@ export default function LoginScreen() {
     setLoading(true)
     try {
       if (isMobile()) {
+        markRedirectPending()
         await signInWithRedirect(auth, googleProvider)
       } else {
         await signInWithPopup(auth, googleProvider)
