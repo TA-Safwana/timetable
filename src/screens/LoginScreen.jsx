@@ -1,6 +1,11 @@
-import { signInWithPopup } from 'firebase/auth'
+import { signInWithPopup, signInWithRedirect } from 'firebase/auth'
 import { auth, googleProvider } from '../firebase'
 import { useState } from 'react'
+
+function isInAppBrowser() {
+  const ua = navigator.userAgent || ''
+  return /FBAN|FBAV|Instagram|WhatsApp|Line|Twitter|Snapchat/i.test(ua)
+}
 
 export default function LoginScreen() {
   const [error, setError] = useState('')
@@ -10,7 +15,11 @@ export default function LoginScreen() {
     setError('')
     setLoading(true)
     try {
-      await signInWithPopup(auth, googleProvider)
+      if (isInAppBrowser()) {
+        await signInWithRedirect(auth, googleProvider)
+      } else {
+        await signInWithPopup(auth, googleProvider)
+      }
     } catch {
       setError('Sign in failed. Please try again.')
       setLoading(false)

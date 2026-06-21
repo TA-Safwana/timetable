@@ -1,4 +1,7 @@
 import { Routes, Route, Navigate, useParams } from 'react-router-dom'
+import { useEffect } from 'react'
+import { getRedirectResult } from 'firebase/auth'
+import { auth } from './firebase'
 import { useAuth } from './hooks/useAuth'
 import LoginScreen from './screens/LoginScreen'
 import HomeScreen from './screens/HomeScreen'
@@ -38,6 +41,10 @@ function ShareRoute({ user }) {
 
 export default function App() {
   const user = useAuth()
+
+  useEffect(() => {
+    getRedirectResult(auth).catch(() => {})
+  }, [])
 
   return (
     <Routes>
