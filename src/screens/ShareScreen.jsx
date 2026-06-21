@@ -67,7 +67,7 @@ export default function ShareScreen({ user }) {
   }
 
   function handleWhatsApp() {
-    const message = `Check out ${child?.emoji} ${child?.name}'s school timetable! Download the School Bag Organiser app and import it:\n${shareUrl}`
+    const message = `Check out ${child?.emoji} ${child?.name}'s school timetable! Download the Timetable app and import it:\n${shareUrl}`
     window.open(`https://wa.me/?text=${encodeURIComponent(message)}`, '_blank')
   }
 

@@ -46,7 +46,7 @@ export default function LoginScreen() {
         letterSpacing: '-0.5px',
         lineHeight: 1.2,
       }}>
-        School Bag Organiser
+        Timetable
       </h1>
       <p style={{
         fontSize: '16px',

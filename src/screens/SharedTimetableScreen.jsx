@@ -74,7 +74,7 @@ export default function SharedTimetableScreen({ user }) {
         color: '#fff',
       }}>
         <div style={{ fontSize: '12px', fontWeight: 600, marginBottom: '12px', opacity: 0.85, letterSpacing: '0.3px' }}>
-          🎒 School Bag Organiser
+          🎒 Timetable
         </div>
         <div style={{ display: 'flex', alignItems: 'center', gap: '14px' }}>
           <span style={{ fontSize: '44px', lineHeight: 1 }}>{data.childEmoji}</span>
@@ -112,7 +112,7 @@ export default function SharedTimetableScreen({ user }) {
             Never forget a book again 🎒
           </div>
           <p style={{ fontSize: '13px', color: 'var(--text-muted)', marginBottom: '14px', lineHeight: 1.6 }}>
-            School Bag Organiser helps parents know exactly which books to pack each day.
+            Timetable helps parents know exactly which books to pack each day.
           </p>
           <div style={{ display: 'flex', flexDirection: 'column', gap: '8px' }}>
             {[

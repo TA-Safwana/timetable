@@ -9,8 +9,8 @@ export default defineConfig({
       registerType: 'autoUpdate',
       includeAssets: ['icons/*.png'],
       manifest: {
-        name: 'School Bag Organiser',
-        short_name: 'SchoolBag',
+        name: 'Timetable',
+        short_name: 'Timetable',
         description: 'Know exactly which books to pack each day',
         start_url: '/',
         display: 'standalone',

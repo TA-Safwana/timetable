@@ -155,7 +155,7 @@ export default function HomeScreen({ user }) {
 
   if (children.length === 0) {
     return (
-      <AppShell title="School Bag 🎒" rightAction={rightAction}>
+      <AppShell title="Timetable 🎒" rightAction={rightAction}>
         <div style={{ textAlign: 'center', padding: '64px 24px' }}>
           <div style={{ fontSize: '64px', marginBottom: '20px', lineHeight: 1 }}>👨‍👧‍👦</div>
           <p style={{ fontSize: '20px', fontWeight: 800, marginBottom: '8px', color: 'var(--text)', letterSpacing: '-0.3px' }}>
@@ -183,7 +183,7 @@ export default function HomeScreen({ user }) {
   }
 
   return (
-    <AppShell title="School Bag 🎒" rightAction={rightAction}>
+    <AppShell title="Timetable 🎒" rightAction={rightAction}>
       <ChildSwitcher
         children={children}
         activeId={childId}
